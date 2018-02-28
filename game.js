@@ -1,4 +1,4 @@
-// 16 chars to drop
+// 10 chars to drop
 let SIZE = 10;
 // x, y, x_vel, y_vel
 
@@ -39,7 +39,7 @@ c["onpointermove"] = e => {
   // 72 / 100  === FLOOR(SIZE * .72) === 7
   // board[(SIZE - 1 * SIZE) + 7] = 2
   // board[(SIZE - 1 * SIZE) + 7 - 1] = 2
-  var i = (SIZE - 1) * SIZE + ~~(e.x / SIZE);
+  var i = ((SIZE - 1) * SIZE + e.x / SIZE) | 0;
   board[i] = board[i - 1] = 2;
 };
 
@@ -52,20 +52,19 @@ var fn = () => {
   //XY = Y * WIDTH + X
   //X  = XY % WIDTH
   let nextX = (ball[0] + ball[1]) % SIZE;
-  let nextY = ~~((ball[0] + ball[2] * SIZE) / SIZE);
-  let jump = false;
+  let nextY = ((ball[0] + ball[2] * SIZE) / SIZE) | 0;
   let nextBallBoardPosition = nextY * SIZE + nextX;
 
-  // right or left wall || piece || padle hit
-  (board[nextBallBoardPosition] || nextX >= SIZE || !nextX) &&
-    ((ball[1] *= -1), (jump = 1));
-  (board[nextBallBoardPosition] || !nextY) && ((ball[2] *= -1), (jump = 1));
-  if (!((jump || nextY > SIZE) && !(board[nextBallBoardPosition] = 0))) {
-    board[ball[0]] = 0;
-    board[(ball[0] = nextBallBoardPosition)] = 3;
+  // right or left wall || piece || padle hi
+
+  const hit1 = ball[(((board[nextBallBoardPosition] || nextX >= SIZE || !nextX) && 1))] *= -1;
+  const hit2 = ball[((board[nextBallBoardPosition] || !nextY) && 2)] *= -1
+
+  if (!(((hit1 || hit2) || nextY > SIZE) && !(board[nextBallBoardPosition] = 0))) {
+    board[(ball[board[ball[0]] = 0] = nextBallBoardPosition)] = 3;
     board.map((v, i) => {
       x.fillStyle = "#" + (v + 1) * 220;
-      x.fillRect((i % SIZE) * SIZE, ~~(i / SIZE) * SIZE, SIZE, SIZE);
+      x.fillRect((i % SIZE) * SIZE, ((i / SIZE) | 0) * SIZE, SIZE, SIZE);
     });
   }
 };
