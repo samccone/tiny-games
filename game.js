@@ -56,11 +56,9 @@ var fn = () => {
   let nextBallBoardPosition = nextY * SIZE + nextX;
 
   // right or left wall || piece || padle hi
-
-  const hit1 = ball[(((board[nextBallBoardPosition] || nextX >= SIZE || !nextX) && 1))] *= -1;
-  const hit2 = ball[((board[nextBallBoardPosition] || !nextY) && 2)] *= -1
-
-  if (!(((hit1 || hit2) || nextY > SIZE) && !(board[nextBallBoardPosition] = 0))) {
+  if (!((
+    (ball[(((board[nextBallBoardPosition] || nextX >= SIZE || !nextX) && 1))] *= -1) | (ball[((board[nextBallBoardPosition] || !nextY) && 2)] *= -1)
+    || nextY > SIZE) && !(board[nextBallBoardPosition] = 0))) {
     board[(ball[board[ball[0]] = 0] = nextBallBoardPosition)] = 3;
     board.map((v, i) => {
       x.fillStyle = "#" + (v + 1) * 220;
