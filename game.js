@@ -1,6 +1,7 @@
 // 10 chars to drop
 let SIZE = 10;
-// x, y, x_vel, y_vel
+
+// xy, x_vel, y_vel
 
 let ball = [(SIZE - 2) * SIZE + SIZE / 2, 1, -1];
 
@@ -60,10 +61,9 @@ var fn = () => {
     (ball[(((board[nextBallBoardPosition] || nextX >= SIZE || !nextX) && 1))] *= -1) | (ball[((board[nextBallBoardPosition] || !nextY) && 2)] *= -1)
     || nextY > SIZE) && !(board[nextBallBoardPosition] = 0))) {
     board[(ball[board[ball[0]] = 0] = nextBallBoardPosition)] = 3;
-    board.map((v, i) => {
-      x.fillStyle = "#" + (v + 1) * 220;
-      x.fillRect((i % SIZE) * SIZE, ((i / SIZE) | 0) * SIZE, SIZE, SIZE);
-    });
+    c.innerText = board.map((v, i) => !(i % 10) ? '\n' + v : v )
+    //  //x[(v ? 'fill' : 'clear') + 'Rect']((i % SIZE) * SIZE, ((i / SIZE) | 0) * SIZE, SIZE, SIZE);
+   // });
   }
 };
 setInterval(fn, 100);
